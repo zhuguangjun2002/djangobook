@@ -18,6 +18,9 @@ class Publisher(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 
 class Author(models.Model):
     first_name = models.CharField(max_length=30)
