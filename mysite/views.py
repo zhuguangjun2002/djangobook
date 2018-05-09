@@ -1,6 +1,5 @@
-#from django.template import Template, Context
-from django.template.loader import get_template
 from django.http import HttpResponse
+from django.shortcuts import render
 import datetime
 
 
@@ -9,11 +8,7 @@ def hello(request):
 
 def current_datetime(request):
     now = datetime.datetime.now()
-    t = get_template("current_datetime.html")
-    #t = Template("<html><body>It is now {{ current_date }}.</body></html>")
-    #html = t.render(Context({'current_date':now}))
-    html = t.render({'current_date':now})
-    return HttpResponse(html)
+    return render(request,"current_datetime.html",{'current_date':now})
 
 def hours_ahead(request,offset):
     try:
