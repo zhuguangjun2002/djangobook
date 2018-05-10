@@ -19,3 +19,10 @@ def hours_ahead(request,offset):
     #assert False
     html = "<html><body>In %s hour(s), it will be  %s.</body></html>" % (offset, dt)
     return HttpResponse(html)
+
+def display_meta(request):
+    values = request.META
+    html = []
+    for k in sorted(values):
+        html.append('<tr><td>%s</td><td>%s</td></tr>' % (k, values[k]))
+    return HttpResponse('<table>%s</table>' % '\n'.join(html))
