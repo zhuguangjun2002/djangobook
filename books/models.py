@@ -13,7 +13,7 @@ class Publisher(models.Model):
     city = models.CharField(max_length=60,verbose_name='城市')
     state_province = models.CharField(max_length=30,verbose_name='省份/直辖市')
     country = models.CharField(max_length=50,verbose_name='国家')
-    website = models.URLField()
+    website = models.URLField(verbose_name='网站')
 
     def __unicode__(self):
         return self.name
