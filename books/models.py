@@ -20,6 +20,7 @@ class Publisher(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name='出版商'
 
 
 class Author(models.Model):
@@ -30,6 +31,9 @@ class Author(models.Model):
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)
 
+    class Meta:
+        verbose_name='作家'
+
 class Book(models.Model):
     title = models.CharField(max_length=100,verbose_name='书名')
     authors = models.ManyToManyField(Author,verbose_name='作者')
@@ -39,3 +43,5 @@ class Book(models.Model):
     def __unicode__(self):
         return self.title
 
+    class Meta:
+        verbose_name='图书'
