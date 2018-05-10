@@ -21,6 +21,7 @@ class Publisher(models.Model):
     class Meta:
         ordering = ['name']
         verbose_name='出版商'
+        verbose_name_plural = "出版商"
 
 
 class Author(models.Model):
@@ -33,6 +34,7 @@ class Author(models.Model):
 
     class Meta:
         verbose_name='作家'
+        verbose_name_plural = "作家"
 
 class Book(models.Model):
     title = models.CharField(max_length=100,verbose_name='书名')
@@ -45,3 +47,4 @@ class Book(models.Model):
 
     class Meta:
         verbose_name='图书'
+        verbose_name_plural = "图书"
