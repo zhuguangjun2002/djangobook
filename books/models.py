@@ -15,7 +15,7 @@ class Publisher(models.Model):
     country = models.CharField(max_length=50)
     website = models.URLField()
 
-    def __str__(self):
+    def __unicode__(self):
         return self.name
 
     class Meta:
@@ -27,7 +27,7 @@ class Author(models.Model):
     last_name = models.CharField(max_length=40)
     email = models.EmailField()
 
-    def __str__(self):
+    def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)
 
 class Book(models.Model):
