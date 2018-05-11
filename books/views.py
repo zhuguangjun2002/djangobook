@@ -19,4 +19,4 @@ def search(request):
         return render(request, 'books/search_results.html',
                       {'books': books, 'query': q})
     else:
-        return HttpResponse('You submitted an empty form.')
+        return HttpResponse('Please submit a search term.')
