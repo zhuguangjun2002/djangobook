@@ -13,16 +13,10 @@ def search_form(request):
     return render(request, 'books/search_form.html')
 
 def search(request):
-    if 'q' in request.GET:
+    if 'q' in request.GET and request.GET['q']:
         q = request.GET['q']
         books = Book.objects.filter(title__icontains=q)
-        html = []
-        for book in books:
-            title = book.title
-            publisher = book.publisher
-            html.append('<tr><td>{0}</td><td>{1}</td></tr>'.format(title,publisher))
-        #html = '<table>{0}</table>'.format('\n'.join(html))
-        html = '<html><body><table>{0}</table></body></html>'.format('\n'.join(html))
-        return HttpResponse(html)
+        return render(request, 'books/search_results.html',
+                      {'books': books, 'query': q})
     else:
         return HttpResponse('You submitted an empty form.')
