@@ -8,10 +8,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Book
 
-
-def search_form(request):
-    return render(request, 'books/search_form.html')
-
 def search(request):
     error= False
     if 'q' in request.GET:
