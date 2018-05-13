@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 from django.http import Http404,HttpResponse,HttpResponseRedirect
 from django.shortcuts import render
 import datetime
@@ -45,7 +47,8 @@ def contact(request):
             return HttpResponseRedirect('/contact/thanks/')
     else:
         form = ContactForm(
-                initial = {'subject':'I love your site!'}
+                # initial = {'subject':'I love your site!'}
+                initial = {'subject':'我喜欢你的网站！'}
                 )
     return render(request,'contact_form.html',{'form':form})
 
