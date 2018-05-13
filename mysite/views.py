@@ -30,7 +30,6 @@ def display_meta(request):
 
 
 def contact(request):
-    form = ContactForm()
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
@@ -44,8 +43,8 @@ def contact(request):
                     connection = con
             )
             return HttpResponseRedirect('/contact/thanks/')
-        else:
-            form = ContactForm()
+    else:
+        form = ContactForm()
     return render(request,'contact_form.html',{'form':form})
 
 def contact_thanks(request):
