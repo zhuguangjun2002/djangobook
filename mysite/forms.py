@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from django import forms
 
 class ContactForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    email = forms.EmailField(required=False, label='Your e-mail address')
-    message = forms.CharField(widget=forms.Textarea)
+    subject = forms.CharField(max_length=100,label='主题')
+    email = forms.EmailField(required=False, label='你的邮箱地址')
+    message = forms.CharField(widget=forms.Textarea,label='信息')
 
     def clean_message(self):
         message = self.cleaned_data['message']
