@@ -16,17 +16,17 @@
     <form action="" method="post" novalidate>
         <div class="field">
             {{ form.subject.errors }}
-            <lable for="id_subject">Subject:</lable>
+            <lable for="id_subject">主题：</lable>
             {{ form.subject }}
         </div>
         <div class="field">
             {{ form.email.errors }}
-            <label for="id_email">Your e-mail address:</label>
+            <label for="id_email">请填写你的邮箱地址：</label>
             {{ form.email }}
         </div>
         <div class="field">
             {{ form.message.errors }}
-            <label for="id_message">Message:</label>
+            <label for="id_message">信息：</label>
             {{ form.message }}
         </div>
         {% csrf_token %}
