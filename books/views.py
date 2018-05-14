@@ -8,6 +8,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Book
 
+# define a listview
+from django.views.generic import ListView
+from books.models import Publisher
+
 def search(request):
     errors= []
     if 'q' in request.GET:
@@ -21,3 +25,6 @@ def search(request):
             return render(request, 'books/search_results.html',
                           {'books': books, 'query': q})
     return render(request,'books/search_form.html',{'errors':errors})
+
+class PublisherList(ListView):
+    model = Publisher
