@@ -40,6 +40,14 @@ class BookManager(models.Manager):
     def title_count(self,keyword):
         return self.filter(title__icontains=keyword).count()
 
+class DahlBookManager(models.Manager):
+    def get_queryset(self):
+        try:
+            dahl = Author.objects.get(last_name='Dahl')
+        except Author.DoesNotExist:
+            return super(DahlBookManager,self).get_queryset().none() # return something like `<QuerySet>[]`
+        return super(DahlBookManager,self).get_queryset().filter(authors=dahl)
+
 class Book(models.Model):
     title = models.CharField(max_length=100,verbose_name='书名')
     authors = models.ManyToManyField(Author,verbose_name='作者')
@@ -47,6 +55,7 @@ class Book(models.Model):
     publication_date = models.DateField(blank=True, null=True,verbose_name='出版日期')
     num_pages = models.IntegerField(blank=True,null=True,verbose_name='页数')
     objects = BookManager()
+    dahl_objects = DahlBookManager() # The Dahl-sepcific manager.
 
     def __unicode__(self):
         return self.title
