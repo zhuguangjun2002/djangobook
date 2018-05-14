@@ -36,11 +36,17 @@ class Author(models.Model):
         verbose_name='作家'
         verbose_name_plural = "作家"
 
+class BookManager(models.Manager):
+    def title_count(self,keyword):
+        return self.filter(title__icontains=keyword).count()
+
 class Book(models.Model):
     title = models.CharField(max_length=100,verbose_name='书名')
     authors = models.ManyToManyField(Author,verbose_name='作者')
     publisher = models.ForeignKey(Publisher,verbose_name='出版商')
     publication_date = models.DateField(blank=True, null=True,verbose_name='出版日期')
+    num_pages = models.IntegerField(blank=True,null=True,verbose_name='页数')
+    objects = BookManager()
 
     def __unicode__(self):
         return self.title
