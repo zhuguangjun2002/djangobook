@@ -50,3 +50,10 @@ class PublisherDetail(DetailView):
 class BookList(ListView):
     queryset = Book.objects.order_by('-publication_date')
     context_object_name = 'book_list'
+
+# 航空工业出版商的图书列表
+class AirchinaBookList(ListView):
+    context_object_name = 'book_list'
+    queryset = Book.objects.filter(publisher__name='航空工业出版社')
+    template_name = 'books/airchina_list.html'
+
