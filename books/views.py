@@ -18,6 +18,14 @@ from django.views.generic import DetailView
 # 覆盖`get_queryset`方法
 from django.shortcuts import get_object_or_404
 
+from django.utils import timezone
+from .models import Author
+
+def hello_publisher(request,pk):
+    dt = "publisher"
+    html = "<html><body>Your pk is %s , Welcome to   %s.</body></html>" % (pk, dt)
+    return HttpResponse(html) 
+
 def search(request):
     errors= []
     if 'q' in request.GET:
@@ -43,12 +51,12 @@ class PublisherDetail(DetailView):
     # pk_url_kward = 'id'
     # tempalte_name = 'books/publisher_detail.html'
 
-    # def get_context_data(self, **kwargs):
-        # # Call the base implementaion first to get a context
-        # context = super(PublisherDetail,self).get_context_data(**kwargs)
-        # # Add in a QuerySet of all the books
-        # #context['book_list'] = Book.objects.all()
-        # return context
+    def get_context_data(self, **kwargs):
+        # Call the base implementaion first to get a context
+        context = super(PublisherDetail,self).get_context_data(**kwargs)
+        # Add in a QuerySet of all the books
+        #context['book_list'] = Book.objects.all()
+        return context
 
 class BookList(ListView):
     queryset = Book.objects.order_by('-publication_date')
@@ -73,3 +81,16 @@ class PublisherBookList(ListView):
         # Add in the publisher
         context['publisher'] = self.publisher
         return context ## Perform Extra Work
+
+class AuthorDetailView(DetailView):
+
+    queryset = Author.objects.all()
+
+    def get_object(self):
+        # Call the superclass
+        object = super(AuthorDetailView,self).get_object()
+        # Record the last accessed date
+        object.last_accessed = timezone.now()
+        object.save()
+        # Return the object
+        return object

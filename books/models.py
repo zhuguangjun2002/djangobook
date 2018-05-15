@@ -28,6 +28,7 @@ class Author(models.Model):
     first_name = models.CharField(max_length=30,verbose_name='名')
     last_name = models.CharField(max_length=40,verbose_name='姓')
     email = models.EmailField(blank=True,verbose_name ='电子邮箱')
+    last_accessed = models.DateTimeField(blank=True, null=True)
 
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)

@@ -1,5 +1,13 @@
-<!--<h1>{{ object.headline }}</h1>-->
-<!--<p>{{ object.content }}</p>-->
-<p>Name: {{ object.name }}</p>
-<p>Address: {{ object.address }}</p>
-<p>website: {{ object.website }}</p>
+{% extends "base.html" %}
+
+{% block content %}
+    <h2> 出版商 详细情况</h2>
+    <ul>
+        <li>{{ publisher.name }}</li>
+        <li>{{ publisher.address }}</li>
+        <li>{{ publisher.city }}</li>
+        <li>{{ publisher.state_province }}</li>
+        <li>{{ publisher.country }}</li>
+        <li>{{ publisher.website }}</li>
+    </ul>
+{% endblock %}

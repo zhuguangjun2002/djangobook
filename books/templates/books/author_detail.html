@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2> 作者详细情况</h2>
+    <ul>
+        {{  author }}
+        <li>{{ author.last_accessed }}</li>
+    </ul>
+{% endblock %}
