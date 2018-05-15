@@ -30,8 +30,10 @@ def search(request):
     return render(request,'books/search_form.html',{'errors':errors})
 
 class PublisherList(ListView):
-    model = Publisher
+    #model = Publisher
+    queryset = Publisher.objects.order_by('city')
     context_object_name = 'my_favorite_publishers'
+
 
 class PublisherDetail(DetailView):
     model = Publisher
