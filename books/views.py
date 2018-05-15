@@ -15,6 +15,9 @@ from books.models import Publisher
 # define a detailview
 from django.views.generic import DetailView
 
+# 覆盖`get_queryset`方法
+from django.shortcuts import get_object_or_404
+
 def search(request):
     errors= []
     if 'q' in request.GET:
@@ -57,3 +60,16 @@ class AirchinaBookList(ListView):
     queryset = Book.objects.filter(publisher__name='航空工业出版社')
     template_name = 'books/airchina_list.html'
 
+class PublisherBookList(ListView):
+    template_name = 'books/books_by_publisher.html'
+
+    def get_queryset(self):
+        self.publisher = get_object_or_404(Publisher,name=self.args[0])
+        return Book.objects.filter(publisher=self.publisher)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementaion first to get a context
+        context = super(PublisherBookList,self).get_context_data(**kwargs)
+        # Add in the publisher
+        context['publisher'] = self.publisher
+        return context ## Perform Extra Work

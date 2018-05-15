@@ -7,6 +7,7 @@ urlpatterns = [
     # url(r'^details/(?P<pk>[0-9]+)/$',PublisherDetail.as_view(), name='publisher-detail'),
     # url(r'^details/(?P<pk>[0-9]+)/$', PublisherDetail.as_view(), name='publisher-detail'),
     url(r'^details/(?P<pk>[0-9]+)/$', views.PublisherDetail.as_view()),
-    url(r'^books/$',views.BookList.as_view()),
+    # url(r'^books/$',views.BookList.as_view()),
     url(r'^airchina/$',views.AirchinaBookList.as_view()),
+    url(r'^books/([\w-]+)/$',views.PublisherBookList.as_view()),
 ]
