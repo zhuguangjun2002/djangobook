@@ -46,3 +46,7 @@ class PublisherDetail(DetailView):
         # # Add in a QuerySet of all the books
         # #context['book_list'] = Book.objects.all()
         # return context
+
+class BookList(ListView):
+    queryset = Book.objects.order_by('-publication_date')
+    context_object_name = 'book_list'
