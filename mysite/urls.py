@@ -17,8 +17,17 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from . import views
 
+# How to Use Django's Built-in Login System
+# By Vitor Freitas
+# https://simpleisbetterthancomplex.com/tutorial/2016/06/27/how-to-use-djangos-built-in-login-system.html
+from django.contrib.auth import views as auth_views
+from django.views.generic.base import TemplateView
+
 urlpatterns = [
-    url(r'^my_login/',views.my_view),
+    url(r'^$',TemplateView.as_view(template_name='home.html'),name='home'),
+    url(r'^my_login/$',views.my_view),
+    url(r'^login/$',auth_views.login,{'template_name':'login.html'},name='login'),
+    url(r'^logout/$',auth_views.logout,{'template_name':'logout.html','next_page': '/'},name='logout'),
     url(r'^admin/', admin.site.urls),
     url(r'^hello/$',views.hello),
     url(r'^time/$', views.current_datetime),

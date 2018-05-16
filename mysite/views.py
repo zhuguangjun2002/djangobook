@@ -11,6 +11,20 @@ from django.core.mail import send_mail,get_connection
 from django.contrib.auth import authenticate,login
 from mysite.forms import LoginForm
 
+
+def home(request):
+    if request.user.is_authenticated():
+        # Do something for authenticated users.
+        username = request.user.username
+        email = request.user.email
+        html = "<html><body>Welcome %s , your email in systme is  %s.</body></html>" % (username, email)
+        return HttpResponse(html)
+    else:
+        # Do something for anonymous users.
+        html = "<html><body>Welcome AnonymousUser to my sitle.</body></html>"
+        return HttpResponse(html)
+
+
 def hello(request):
     return HttpResponse("Hello world") 
 
