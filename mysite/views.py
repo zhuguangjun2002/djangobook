@@ -15,6 +15,9 @@ from mysite.forms import LoginForm
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
+# 使用`login_required`装饰器
+from django.contrib.auth.decorators import login_required
+
 def home(request):
     if request.user.is_authenticated():
         # Do something for authenticated users.
@@ -27,7 +30,7 @@ def home(request):
         html = "<html><body>Welcome AnonymousUser to my sitle.</body></html>"
         return HttpResponse(html)
 
-
+@login_required
 def hello(request):
     return HttpResponse("Hello world") 
 
