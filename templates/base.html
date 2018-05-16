@@ -6,6 +6,7 @@
 </head>
 <body>
   <header>
+    {% block header %}
     <h1>Django Simple Login</h1>
     {% if user.is_authenticated %}
       Hi {{ user.username }}!
@@ -14,6 +15,7 @@
       <p>You are not logged in</p>
       <a href="{% url 'login' %}">login</a>
     {% endif %}
+    {% endblock %}
   </header>
   <hr>
   <main>

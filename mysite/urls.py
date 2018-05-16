@@ -24,8 +24,10 @@ from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
+    url(r'^mhome/$',TemplateView.as_view(template_name='mhome.html'),name='mhome'),
+    url(r'^mlogin/$',views.my_view,name='mlogin'),
+    url(r'^mlogout/$',views.logout_view,name='mlogout'),
     url(r'^$',TemplateView.as_view(template_name='home.html'),name='home'),
-    url(r'^my_login/$',views.my_view),
     url(r'^login/$',auth_views.login,{'template_name':'login.html'},name='login'),
     url(r'^logout/$',auth_views.logout,{'template_name':'logout.html','next_page': '/'},name='logout'),
     url(r'^admin/', admin.site.urls),

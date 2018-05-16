@@ -11,6 +11,9 @@ from django.core.mail import send_mail,get_connection
 from django.contrib.auth import authenticate,login
 from mysite.forms import LoginForm
 
+# 实现 `logout_view` in "/authentication-web-requests/"
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 def home(request):
     if request.user.is_authenticated():
@@ -90,9 +93,10 @@ def my_view(request):
                     login(request,user)
                     # Redirect to a success page.
                     #return HttpResponse("Login Successfully!")
-                    email = user.email
-                    html = "<html><body>Welcome %s , your email in systme is  %s.</body></html>" % (username, email)
-                    return HttpResponse(html)
+                    #email = user.email
+                    #html = "<html><body>Welcome %s , your email in systme is  %s.</body></html>" % (username, email)
+                    #return HttpResponse(html)
+                    return redirect('mhome')
                 else:
                     # Return a 'disabled account' error message
                     return HttpResponse("Sorry, the user is a disabled account!")
@@ -105,3 +109,8 @@ def my_view(request):
                 #initial = {'subject':'我喜欢你的网站！'}
                 )
     return render(request,'login_form.html',{'form':form})
+
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+    return redirect('mhome')
