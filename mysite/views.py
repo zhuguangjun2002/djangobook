@@ -18,6 +18,9 @@ from django.shortcuts import redirect
 # 使用`login_required`装饰器
 from django.contrib.auth.decorators import login_required
 
+# 使用`user_passes_test`装饰器
+from django.contrib.auth.decorators import user_passes_test
+
 def home(request):
     if request.user.is_authenticated():
         # Do something for authenticated users.
@@ -34,6 +37,17 @@ def home(request):
 def hello(request):
     return HttpResponse("Hello world") 
 
+def email_check(user):
+    if user.is_authenticated():
+        if user.email:
+          return user.email.endswith('@163.com')
+        else:
+          return False
+    else:
+        return False
+
+#@user_passes_test(email_check, login_url='login')
+@user_passes_test(email_check)
 def current_datetime(request):
     now = datetime.datetime.now()
     return render(request,"current_datetime.html",{'current_date':now})
