@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>请登录系统</title>
+</style>
+</head>
+<body>
+    <h1>请登录系统</h1>
+
+     {% if form.errors %}
+        <p style="color: red;">
+            <!--Please correct the error{{ form.errors|pluralize }} below.-->
+            请修正下列错误。
+        </p>
+    {% endif %}
+
+    <form action="" method="post" novalidate>
+        <div class="field">
+            {{ form.username.errors }}
+            <lable for="id_username">用户名：</lable>
+            {{ form.username }}
+        </div>
+        <div class="field">
+            {{ form.password.errors }}
+            <label for="id_password">请填写你的密码：</label>
+            {{ form.password }}
+        </div>
+        {% csrf_token %}
+        <input type="submit" value="登录">
+    </form>
+</body>
+</html>

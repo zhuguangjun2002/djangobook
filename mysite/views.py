@@ -6,6 +6,11 @@ import datetime
 from mysite.forms import ContactForm
 from django.core.mail import send_mail,get_connection
 
+# authentication example in "ch11-User Authentication in Django"
+# 02- "Authentication in Web Requests
+from django.contrib.auth import authenticate,login
+from mysite.forms import LoginForm
+
 def hello(request):
     return HttpResponse("Hello world") 
 
@@ -55,3 +60,34 @@ def contact(request):
 def contact_thanks(request):
     html = "Thanks!"
     return HttpResponse(html)
+
+def my_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            username = cd['username']
+            password = cd['password']
+            #username = request.POST['username']
+            #password = request.POST['password']
+            user = authenticate(username=username,password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request,user)
+                    # Redirect to a success page.
+                    #return HttpResponse("Login Successfully!")
+                    email = user.email
+                    html = "<html><body>Welcome %s , your email in systme is  %s.</body></html>" % (username, email)
+                    return HttpResponse(html)
+                else:
+                    # Return a 'disabled account' error message
+                    return HttpResponse("Sorry, the user is a disabled account!")
+            else:
+                # Return a 'invalid login' error message
+                return HttpResponse("Sorry, username or password is not correct!Please try it again!")
+    else:
+        form = LoginForm(
+                # initial = {'subject':'I love your site!'}
+                #initial = {'subject':'我喜欢你的网站！'}
+                )
+    return render(request,'login_form.html',{'form':form})

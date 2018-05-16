@@ -13,3 +13,21 @@ class ContactForm(forms.Form):
         if num_words < 4:
             raise forms.ValidationError("Not engough words!")
         return message
+
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=10,label='用户名')
+    password = forms.CharField(max_length=20, label='密码')
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        num_char = len(username)
+        if num_char < 4:
+            raise forms.ValidationError("username must has at least 4 charactors!")
+        return username
+
+    def clean_password(self):
+        password = self.cleaned_data['password']
+        num_char = len(password)
+        if num_char < 4:
+            raise forms.ValidationError("Password must at least 4 charactors!")
+        return password

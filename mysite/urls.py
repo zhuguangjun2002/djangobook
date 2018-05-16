@@ -18,6 +18,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
+    url(r'^my_login/',views.my_view),
     url(r'^admin/', admin.site.urls),
     url(r'^hello/$',views.hello),
     url(r'^time/$', views.current_datetime),
