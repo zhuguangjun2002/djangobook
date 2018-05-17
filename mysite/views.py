@@ -21,6 +21,10 @@ from django.contrib.auth.decorators import login_required
 # 使用`user_passes_test`装饰器
 from django.contrib.auth.decorators import user_passes_test
 
+# 使用Django自带的`UserCreationForm`,创建`signup`视图
+from django.contrib.auth.forms import UserCreationForm
+
+
 def home(request):
     if request.user.is_authenticated():
         # Do something for authenticated users.
@@ -131,3 +135,17 @@ def logout_view(request):
     logout(request)
     # Redirect to a success page.
     return redirect('mhome')
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username,password=raw_password)
+            login(request,user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request,'signup.html',{'form':form})
