@@ -23,12 +23,15 @@ from . import views
 from django.contrib.auth import views as auth_views
 from django.views.generic.base import TemplateView
 
+# use core app 's `signup` 
+from core import views as core_views
+
 urlpatterns = [
     url(r'^mhome/$',TemplateView.as_view(template_name='mhome.html'),name='mhome'),
     url(r'^mlogin/$',views.my_view,name='mlogin'),
     url(r'^mlogout/$',views.logout_view,name='mlogout'),
     url(r'^$',TemplateView.as_view(template_name='home.html'),name='home'),
-    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^signup/$', core_views.signup, name='signup'),
     url(r'^login/$',auth_views.login,{'template_name':'login.html'},name='login'),
     url(r'^logout/$',auth_views.logout,{'template_name':'logout.html','next_page': '/'},name='logout'),
     url(r'^password_reset/$',auth_views.password_reset,name='password_reset'),
