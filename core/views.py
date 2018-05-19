@@ -67,6 +67,7 @@ def activate(request, uidb64, token):
         return render(request, 'account_activation_invalid.html')
 
 
+@login_required
 def update_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST,instance=request.user)
