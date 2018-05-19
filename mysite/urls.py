@@ -26,6 +26,10 @@ from django.views.generic.base import TemplateView
 # use core app 's `signup` 
 from core import views as core_views
 
+# add `django-debug-toolbar`
+from django.conf import settings
+from django.conf.urls import include, url
+
 urlpatterns = [
     url(r'^mhome/$',TemplateView.as_view(template_name='mhome.html'),name='mhome'),
     url(r'^mlogin/$',views.my_view,name='mlogin'),
@@ -47,3 +51,9 @@ urlpatterns = [
     url(r'^contact/thanks/$',views.contact_thanks),
     url(r'^', include('books.urls')),
 ]
+
+if settings.DEBUG:
+   import debug_toolbar
+   urlpatterns += [
+       url(r'^__debug__/', include(debug_toolbar.urls)),
+   ]
