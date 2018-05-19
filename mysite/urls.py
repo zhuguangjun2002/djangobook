@@ -37,6 +37,8 @@ urlpatterns = [
     #url(r'^$',TemplateView.as_view(template_name='home.html'),name='home'),
     url(r'^$', core_views.home, name='home'),
     url(r'^signup/$', core_views.signup, name='signup'),
+    url(r'^profile_detail/$', core_views.profile_detail, name='profile_detail'),
+    url(r'^update_profile/$', core_views.update_profile, name='update_profile'),
     url(r'^login/$',auth_views.login,{'template_name':'login.html'},name='login'),
     url(r'^logout/$',auth_views.logout,{'template_name':'logout.html','next_page': '/'},name='logout'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',

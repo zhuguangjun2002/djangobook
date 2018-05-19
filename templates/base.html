@@ -10,11 +10,6 @@
     <h1>Django Simple Login</h1>
     {% if user.is_authenticated %}
       Hi {{ user.username }}!
-      <ul>
-          <li>Username: {{ user.username }}</li>
-          <li>Location: {{ user.profile.location }}</li>
-          <li>Birth Date: {{ user.profile.birth_date }}
-      </ul>
       <a href="{% url 'logout' %}">logout</a>
     {% else %}
       <p>You are not logged in</p>
