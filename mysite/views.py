@@ -148,3 +148,8 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request,'signup.html',{'form':form})
+
+def my_image(request):
+    image_data =  open("/home/user/project/djangobook/mysite_project/mysite/images/dc-3.png", "rb").read()
+    return HttpResponse(image_data, content_type="image/png")
+

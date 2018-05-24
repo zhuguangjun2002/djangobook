@@ -55,6 +55,7 @@ urlpatterns = [
     url(r'^meta/$', views.display_meta),
     url(r'^contact/$',views.contact),
     url(r'^contact/thanks/$',views.contact_thanks),
+    url(r'^myimage/$',views.my_image),
     url(r'^', include('books.urls')),
 ]
 
