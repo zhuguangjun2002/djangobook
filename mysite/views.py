@@ -24,6 +24,9 @@ from django.contrib.auth.decorators import user_passes_test
 # 使用自定义的`SignUpForm`,创建`signup`视图
 from mysite.forms import SignUpForm
 
+# 使用csv
+import csv
+
 def home(request):
     if request.user.is_authenticated():
         # Do something for authenticated users.
@@ -153,3 +156,21 @@ def my_image(request):
     image_data =  open("/home/user/project/djangobook/mysite_project/mysite/images/dc-3.png", "rb").read()
     return HttpResponse(image_data, content_type="image/png")
 
+# 显示csv文件
+def my_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment;filename="dc-3-airplane.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['Role','Airliner and transport aircraft'])
+    writer.writerow(['National origin','United States'])
+    writer.writerow(['Manufacturer','Douglas Aircraft Company'])
+    writer.writerow(['First flight','December 17, 1935'])
+    writer.writerow(['Introduction','1936'])
+    writer.writerow(['Status','In service'])
+    writer.writerow(['Produced','1936–1942, 1950'])
+    writer.writerow(['Number built','607'])
+    writer.writerow(['Unit cost','US$79,500 (equivalent to $1,419,036 in 2017)'])
+    writer.writerow(['Developed from','Douglas DC-2'])
+    writer.writerow(['Variants','Douglas C-47 Skytrain','Lisunov Li-2','Showa/Nakajima L2D','Basler BT-67','Conroy Turbo Three','Conroy Tri-Turbo-Three'])
+    return response
