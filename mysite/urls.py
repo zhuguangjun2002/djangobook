@@ -57,6 +57,7 @@ urlpatterns = [
     url(r'^contact/thanks/$',views.contact_thanks),
     url(r'^myimage/$',views.my_image),
     url(r'^mycsv/$',views.my_csv),
+    url(r'^mystreamingcsv/$',views.my_streaming_csv_view),
     url(r'^', include('books.urls')),
 ]
 

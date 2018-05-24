@@ -27,6 +27,10 @@ from mysite.forms import SignUpForm
 # 使用csv
 import csv
 
+# 使用 streaming response
+from django.utils.six.moves import range
+from django.http import StreamingHttpResponse
+
 def home(request):
     if request.user.is_authenticated():
         # Do something for authenticated users.
@@ -173,4 +177,26 @@ def my_csv(request):
     writer.writerow(['Unit cost','US$79,500 (equivalent to $1,419,036 in 2017)'])
     writer.writerow(['Developed from','Douglas DC-2'])
     writer.writerow(['Variants','Douglas C-47 Skytrain','Lisunov Li-2','Showa/Nakajima L2D','Basler BT-67','Conroy Turbo Three','Conroy Tri-Turbo-Three'])
+    return response
+
+
+class Echo(object):
+    """An object that implements just the write method of the file-like
+    interface.
+    """
+    def write(self, value):
+        """Write the value by returning it, instead of storing in a buffer."""
+        return value
+
+def my_streaming_csv_view(request):
+    """A view that streams a large CSV file."""
+    # Generate a sequence of rows. The range is based on the maximum number of
+    # rows that can be handled by a single sheet in most spreadsheet
+    # applications.
+    rows = (["Row {}".format(idx), str(idx)] for idx in range(65536))
+    pseudo_buffer = Echo()
+    writer = csv.writer(pseudo_buffer)
+    response = StreamingHttpResponse((writer.writerow(row)
+      for row in rows), content_type="text/csv")
+    response['Content-Disposition'] = 'attachment;filename="somefilename.csv"'
     return response
