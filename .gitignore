@@ -115,3 +115,6 @@ ENV/
 # sqlite3
 src/db.sqlite3
 db.sqlite3
+
+# tags
+tags
